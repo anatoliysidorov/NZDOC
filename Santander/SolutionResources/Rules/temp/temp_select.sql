@@ -1,0 +1,1 @@
+SELECT col_Name FROM TBL_DICT_CASESYSTYPE WHERE col_Name = 'Vasya'

@@ -1,0 +1,1 @@
+response["r"] = ConfigurationManager.AppSettings["DataServiceRest"];

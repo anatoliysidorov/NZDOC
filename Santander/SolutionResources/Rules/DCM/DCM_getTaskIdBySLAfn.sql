@@ -1,0 +1,24 @@
+DECLARE 
+    v_taskid INTEGER; 
+BEGIN 	
+	IF f_DCM_isSLAinCache(:SLAActionID) = 1 THEN
+		SELECT se.COL_SLAEVENTCCTASKCC
+		INTO v_taskid
+		FROM TBL_SLAACTIONCC sa
+		INNER JOIN TBL_SLAEVENTCC se ON se.col_id = sa.COL_SLAACTIONCCSLAEVENTCC
+		WHERE sa.col_id = :SLAActionID;
+		
+	ELSE 
+		SELECT se.COL_SLAEVENTTASK
+		INTO v_taskid
+		FROM TBL_SLAACTION sa
+		INNER JOIN TBL_SLAEVENT se ON se.col_id = sa.COL_SLAACTIONSLAEVENT
+		WHERE sa.col_id = :SLAActionID;
+		
+	END IF;
+	
+	RETURN v_taskid;
+EXCEPTION 
+    WHEN no_data_found THEN 
+      RETURN NULL; 
+END; 

@@ -1,0 +1,3 @@
+BEGIN 
+	:ResultText := TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') || ' ' || DBTIMEZONE;
+END;

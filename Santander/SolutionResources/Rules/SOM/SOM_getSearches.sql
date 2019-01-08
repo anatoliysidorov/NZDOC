@@ -1,0 +1,34 @@
+SELECT sc.COL_ID AS ID,
+       sc.COL_NAME AS NAME,
+       sc.COL_CODE AS CODE,
+       sc.COL_DESCRIPTION AS DESCRIPTION,
+       sc.COL_ISDELETED AS ISDELETED,
+       sc.COL_SOM_CONFIGSOM_MODEL AS MODELID,
+       sm.COL_NAME AS MODELNAME,
+       so.COL_ID AS OBJECTID,
+       so.COL_NAME AS OBJECTNAME,
+       ct.COL_ID AS CASETYPEID,
+       ct.COL_NAME AS CASETYPENAME,
+       ct.COL_CODE AS CASETYPECODE,
+       F_GETNAMEFROMACCESSSUBJECT (sc.COL_CREATEDBY) AS CREATEDBY_NAME,
+       F_UTIL_GETDRTNFRMNOW (sc.COL_CREATEDDATE) AS CREATEDDURATION,
+       F_GETNAMEFROMACCESSSUBJECT (sc.COL_MODIFIEDBY) AS MODIFIEDBY_NAME,
+       F_UTIL_GETDRTNFRMNOW (sc.COL_MODIFIEDDATE) AS MODIFIEDDURATION,
+       so.COL_ISROOT AS ISROOT,
+       sc.col_IsShowInNavMenu  AS ISSHOWINNAVMENU,
+       f_MDM_getObjectPath(FOMObjectId => so.col_som_objectfom_object) as OBJECTPATH
+  FROM tbl_SOM_Config sc
+       LEFT JOIN tbl_SOM_Model sm
+          ON sc.COL_SOM_CONFIGSOM_MODEL = sm.COL_ID
+       LEFT JOIN tbl_MDM_Model mm
+          ON mm.col_id = sm.col_SOM_ModelMDM_Model
+       LEFT JOIN tbl_DICT_CaseSysType ct
+          ON ct.col_casesystypemodel = mm.col_id
+       LEFT JOIN tbl_SOM_Object so
+          ON so.COL_SOM_OBJECTFOM_OBJECT = sc.COL_SOM_CONFIGFOM_OBJECT
+ WHERE     1 = 1
+       AND (:ID IS NULL OR sc.COL_ID = :ID)
+       AND (:MDMMODELID IS NULL OR mm.COL_ID = :MDMMODELID)
+       AND (:CASETYPEID IS NULL OR ct.COL_ID = :CASETYPEID)
+       AND (:OBJECTCODE IS NULL OR upper(so.COL_CODE) = upper(:OBJECTCODE))
+<%=IfNotNull("@SORT@", " ORDER BY @SORT@ @DIR@, 1")%>

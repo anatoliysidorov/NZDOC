@@ -1,0 +1,3 @@
+SELECT *
+FROM VW_UTIL_DEPLOYEDPAGE
+<%=Sort("@SORT@","@DIR@")%>

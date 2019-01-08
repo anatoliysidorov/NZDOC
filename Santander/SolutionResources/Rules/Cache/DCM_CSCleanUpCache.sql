@@ -1,0 +1,18 @@
+DECLARE
+          
+             
+BEGIN 
+  
+  FOR rec IN
+  (
+  SELECT COL_CSTABLENAME
+  FROM TBL_CSCACHETABLES  
+  ORDER BY COL_CSTABLENAME ASC
+  )
+  LOOP
+    IF rec.COL_CSTABLENAME IS NOT NULL THEN    
+     EXECUTE IMMEDIATE 'DELETE FROM '||TO_CHAR(rec.COL_CSTABLENAME);      
+    END IF;--tables are exists
+  END LOOP;--main loop cache tables
+
+END;

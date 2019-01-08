@@ -1,0 +1,1 @@
+RETURN :OriginalXML || '<' || :Tag || '>' || :NodeValue ||  '</' || :Tag || '>';

@@ -1,0 +1,1 @@
+SELECT COLUMN_VALUE as Value FROM TABLE(asf_splitclob2('Active,Pending,Closed,Deleted', ','))

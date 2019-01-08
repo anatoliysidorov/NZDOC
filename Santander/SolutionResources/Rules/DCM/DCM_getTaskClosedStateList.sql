@@ -1,0 +1,1 @@
+select col_id as ID, col_activity as Activity from tbl_dict_taskstate where col_isfinish = 1 and nvl(col_stateconfigtaskstate,0) = nvl(:StateConfigId,0)

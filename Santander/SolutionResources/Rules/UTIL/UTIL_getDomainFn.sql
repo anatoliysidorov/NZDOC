@@ -1,0 +1,1 @@
+RETURN '@TOKEN_DOMAIN@';

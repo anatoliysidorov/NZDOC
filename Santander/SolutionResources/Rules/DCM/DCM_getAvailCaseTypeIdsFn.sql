@@ -1,0 +1,16 @@
+DECLARE
+  v_CaseId INTEGER;
+  v_CaseTypeId INTEGER;
+  v_AvailableCaseTypeIds VARCHAR2(32767);
+BEGIN
+  v_CaseTypeId := :CaseTypeId;
+
+  IF (v_CaseTypeId IS NOT NULL) THEN
+    SELECT (LISTAGG(COL_CASELINKTMPLCHILDCASETYPE, ',') WITHIN GROUP (ORDER BY COL_CASELINKTMPLCHILDCASETYPE)) INTO v_AvailableCaseTypeIds
+    FROM TBL_CASELINKTMPL
+    WHERE COL_CASELINKTMPLPRNTCASETYPE = v_CaseTypeId;
+  END IF;
+  
+  return v_AvailableCaseTypeIds;
+  
+END;
