@@ -37,6 +37,10 @@ declare
   v_DLineSlaEventTypeCode nvarchar2(255);
   v_DLineSlaEventTypeName nvarchar2(255);
   v_calcWB Integer;
+  
+  -- Fields from CDM_Briefings
+  v_RiskIds varchar2(255);
+  v_UrgencyIds varchar2(255);
 begin
 
   v_CREATED_END := :CREATED_END;
@@ -57,6 +61,7 @@ begin
   v_ExternalPartyIds := :ExternalPartyIds;
   v_LIMIT := :LIMIT;
   v_PriorityIds := :PriorityIds;
+  
   v_ResolutionCodeIds := :ResolutionCodeIds;
   v_SORT := :SORT;
   if v_SORT is null then
@@ -85,6 +90,10 @@ begin
   v_CalcEmail := REPLACE(v_CalcEmail, '''', '''''');
   v_CalcExtSysId := REPLACE(v_CalcExtSysId, '''', '''''');
   v_CalcName := REPLACE(v_CalcName, '''', '''''');
+  
+  -- Fields from CDM_Briefings  
+  v_RiskIds := :RiskIds;
+  v_UrgencyIds := :UrgencyIds;
 
   if lower(trim(v_SORT)) = 'goalsladuration' then
     v_SORT := 'GOALSLADATETIME';
@@ -212,6 +221,15 @@ begin
     v_query2 := v_query2 || ' inner join tbl_caseparty cp on cv.col_id = cp.col_casepartycase ';
   end if;
   */
+  if v_RiskIds is not null or v_UrgencyIds is not null then
+    v_query := v_query || ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cv.col_id 
+                    left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK 
+                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
+    v_query2 := v_query2 || ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cv.col_id 
+                    left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK 
+                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
+  end if;
+  
   v_whereqry := null;
   if v_Task_Id is not null then
     v_whereqry := ' WHERE cv.col_id = (select col_casetask from tbl_task where col_id  = ' || to_char(v_Task_Id) || ')';
@@ -300,6 +318,20 @@ begin
     --v_whereqry := v_whereqry || ' AND cp.col_casepartyppl_team in (' || v_TeamIds || ')';
     v_whereqry := v_whereqry || ' AND cv.col_id in (select cp.col_casepartycase from tbl_caseparty cp where cp.col_casepartycase = cv.col_id and cp.col_casepartyppl_caseworker in (' || v_TeamIds || '))';
   end if;
+  
+  -- Search by CDM Briefingss fields
+  if v_RiskIds is not null and v_whereqry is null then
+    v_whereqry := ' WHERE dictRisk.col_id in (' || v_RiskIds || ')';
+  elsif v_RiskIds is not null and v_whereqry is not null then
+    v_whereqry := v_whereqry || ' AND dictRisk.col_id in (' || v_RiskIds || ')';
+  end if;
+  if v_UrgencyIds is not null and v_whereqry is null then
+    v_whereqry := ' WHERE dictUrgency.col_id in (' || v_UrgencyIds || ')';
+  elsif v_UrgencyIds is not null and v_whereqry is not null then
+    v_whereqry := v_whereqry || ' AND dictUrgency.col_id in (' || v_UrgencyIds || ')';
+  end if;
+  
+  
   if v_ExternalPartyIds is not null and v_whereqry is null then
     --v_whereqry := ' WHERE (cp.col_casepartyexternalparty in (' || v_ExternalPartyIds || ') or cv.col_caseppl_workbasket in (' || v_calcWB || '))';
     v_whereqry := ' WHERE cv.col_id in (select cp.col_casepartycase from tbl_caseparty cp where cp.col_casepartycase = cv.col_id and cp.col_casepartyexternalparty in (' || v_ExternalPartyIds || '))';
@@ -380,7 +412,8 @@ begin
   case when exists(select col_casetypemodcachecasetype from tbl_ac_casetypemodifycache where col_accesssubjectcode = sys_context(''CLIENTCONTEXT'', ''AccessSubject'')
                    and col_casetypemodcachecasetype = cs.col_casedict_casesystype) then 1 else 0 end as PERM_CASETYPE_MODIFY,
   f_getNameFromAccessSubject(cs.col_createdby) as CreatedBy_Name, f_UTIL_getDrtnFrmNow(cs.col_createddate) as CreatedDuration,
-  f_getNameFromAccessSubject(cs.col_modifiedby) as ModifiedBy_Name, f_UTIL_getDrtnFrmNow (cs.col_modifieddate) as ModifiedDuration,';
+  f_getNameFromAccessSubject(cs.col_modifiedby) as ModifiedBy_Name, f_UTIL_getDrtnFrmNow (cs.col_modifieddate) as ModifiedDuration,
+  dictRisk.col_name as Risk, dictUrgency.col_name as Urgency, ';
   if v_Case_Id is null then
     v_query := v_query || ' NULL as customdata,';
   elsif v_Case_Id is not null then
@@ -405,7 +438,10 @@ begin
           ' left join vw_ppl_workbasketsimple wb on cs.col_caseppl_workbasket = wb.id ' ||
           ' left join tbl_stp_priority prty on cs.col_stp_prioritycase = prty.col_id ' ||
           ' left join tbl_stp_resolutioncode rc on cs.col_stp_resolutioncodecase = rc.col_id ' ||
-          ' left join tbl_dict_state dict_state ON cs.col_casedict_state = dict_state.col_id ';
+          ' left join tbl_dict_state dict_state ON cs.col_casedict_state = dict_state.col_id ' ||
+		  ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cs.col_id ' ||
+          ' left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK ' || 
+          ' left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
   ------------------------------------------------------------------------------------------------------------
   v_query := v_query || ' order by c.rn';
   --insert into tbl_log(col_bigdata1) values(v_query);

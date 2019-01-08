@@ -22,6 +22,10 @@ declare
     v_CaseStateIds varchar2(32767);
     v_MilestoneIds varchar2(32767);
 	
+	-- Fields from CDM_Briefings
+	v_RiskIds varchar2(255);
+	v_UrgencyIds varchar2(255);
+	
     --PAGING AND SORTING
     v_LIMIT INTEGER;
     v_DIR NVARCHAR2(10);
@@ -56,6 +60,10 @@ begin
     v_CaseStateIds := :CaseStateIds;
     v_MilestoneIds := :MilestoneIds;
 	
+	-- Fields from CDM_Briefings  
+	v_RiskIds := :RiskIds;
+	v_UrgencyIds := :UrgencyIds;
+	
     --PAGING AND SORTING INPUT
     v_SORT := NVL(:SORT,'ID');
     v_DIR := NVL(:DIR,'ASC');
@@ -81,7 +89,7 @@ begin
 
 	
 	--EXECUTE SEARCH
-    v_result := f_DCM_SearchCasesACAllFn(CalcEmail => v_CalcEmail,
+    v_result := f_CUST_SearchCasesACAllFn(CalcEmail => v_CalcEmail,
                                          CalcExtSysId => v_CalcExtSysId,
                                          CalcName => v_CalcName,
                                          Case_Id => v_Case_Id,
@@ -109,7 +117,9 @@ begin
                                          workbasket_name => NULL,
                                          WorkbasketIds => v_WorkbasketIds,
                                          CaseStateIds => v_CaseStateIds,
-                                         MilestoneIds => v_MilestoneIds);
+                                         MilestoneIds => v_MilestoneIds,
+										 RiskIds => v_RiskIds,
+										 UrgencyIds => v_UrgencyIds);
     --RETURN
     :ErrorCode := v_ErrorCode;
     :ErrorMessage := v_ErrorMessage;
