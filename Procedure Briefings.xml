@@ -1,0 +1,345 @@
+<mxGraphModel dx="1533" dy="558" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="826" pageHeight="1169" background="#ffffff">
+  <root>
+    <mxCell id="0" type="root" PROCEDURE_ID="1"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="40" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="2" target="4" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object condition_type="none" dependency_type="FSCLR" as="data"/>
+    </mxCell>
+    <mxCell id="2" value="CASE&lt;br/&gt;STARTS" style="startClass" parent="1" type="start" vertex="1">
+      <mxGeometry x="-20" y="239" width="80" height="80" as="geometry"/>
+    </mxCell>
+    <mxCell id="3" value="CASE&lt;br/&gt;ENDS" style="endClass" parent="1" type="end" vertex="1">
+      <mxGeometry x="940" y="1315" width="80" height="80" as="geometry"/>
+    </mxCell>
+    <mxCell id="8" style="edgeStyle=none;shape=connector;rounded=0;html=1;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="4" target="6" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCO" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="4" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="239" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Triage Request" task_type_code="TRIAGE_REQUEST" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="21" ICONCODE="folder" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="10" value="Request Accepted" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=0.5;entryY=0;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="6" target="9" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_REQUEST_ACCEPTED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="38" value="Request Rejected" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=0.5;entryY=0;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="6" target="3" edge="1" type="connection">
+      <mxGeometry x="-0.5876" y="2" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="990" y="400"/>
+        </Array>
+        <mxPoint as="offset"/>
+      </mxGeometry>
+      <Object dependency_type="NONE" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_REQUEST_REJECTED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="6" value="ANY" style="gatewayClass;gateway=1;outline=none;symbol=exclusiveGw;" parent="1" vertex="1" type="gateway">
+      <mxGeometry x="365" y="370" width="70" height="70" as="geometry"/>
+      <Object inputSubType="any" outputSubType="exclusiveGw" sources="" targets="" as="data"/>
+    </mxCell>
+    <mxCell id="44" style="edgeStyle=none;shape=connector;rounded=0;html=1;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="9" target="43" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCO" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="9" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="490" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Assign BU Director" task_type_code="ASSIGN_BU_DIRECTOR" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="41" ICONCODE="chevron-circle-right" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="15" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0.5;entryY=0;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="12" target="14" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCO" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="12" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="745" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Develop Response" task_type_code="DEVELOP_RESPONSE" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="23" ICONCODE="pencil" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="17" value="CUST_isLowRisk" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=0.5;entryY=0;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="14" target="16" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="rule" rule_code="f_cust_islowrisk" description="Low Risk" as="data"/>
+    </mxCell>
+    <mxCell id="21" value="CUST_isHighRisk" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;edgeStyle=none;html=1;entryX=0.5;entryY=0;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="14" target="19" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="718" y="900"/>
+        </Array>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="rule" rule_code="f_cust_ishighrisk" as="data"/>
+    </mxCell>
+    <mxCell id="14" value="ANY" style="gatewayClass;gateway=1;outline=none;symbol=exclusiveGw;" parent="1" vertex="1" type="gateway">
+      <mxGeometry x="365" y="865" width="70" height="70" as="geometry"/>
+      <Object inputSubType="any" outputSubType="exclusiveGw" sources="Develop Response" targets="Provide Critical Endorsement, Approve Response" as="data"/>
+    </mxCell>
+    <mxCell id="33" style="edgeStyle=none;shape=connector;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="16" target="32" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCO" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="16" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="992" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Provide Critical Endorsement" task_type_code="PROVIDE_CRITICAL_ENDORSEMENT" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="24" ICONCODE="pencil-square-o" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="18" value="Low Risk" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;connectable=0;" parent="1" vertex="1" type="label">
+      <mxGeometry x="310" y="935" width="60" height="20" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="24" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0;entryY=0.5;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="19" target="23" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCO" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="19" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="658" y="992" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Approve Response" task_type_code="APPROVE_RESPONSE" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="25" ICONCODE="check-square" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="22" value="Medium or high risk" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;connectable=0;" parent="1" vertex="1" type="label">
+      <mxGeometry x="578" y="865" width="100" height="20" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="25" value="Not Approved" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=1;entryY=0.5;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="23" target="12" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="872" y="785"/>
+        </Array>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_NOT_APPROVED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="27" value="Approved" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=1;entryY=0.5;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="23" target="26" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="871" y="1226"/>
+        </Array>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_APPROVED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="23" value="ANY" style="gatewayClass;gateway=1;outline=none;symbol=exclusiveGw;" parent="1" vertex="1" type="gateway">
+      <mxGeometry x="840" y="997" width="70" height="70" as="geometry"/>
+      <Object inputSubType="any" outputSubType="exclusiveGw" sources="" targets="" as="data"/>
+    </mxCell>
+    <mxCell id="37" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0.5;entryY=0;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="26" target="36" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="26" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="1186" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Provide Response" task_type_code="PROVIDE_RESPONSE" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="26" ICONCODE="reply-all" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="34" value="Endorsed" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="32" target="19" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_ENDORSED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="35" value="Not Endorsed" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;entryX=0;entryY=0.5;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="32" target="12" edge="1" type="connection">
+      <mxGeometry x="-0.488" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="535" y="1125"/>
+          <mxPoint x="240" y="1125"/>
+          <mxPoint x="240" y="785"/>
+        </Array>
+        <mxPoint as="offset"/>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="resolution_code" as="data">
+        <Array as="resolution_code">
+          <add value="TASK_NOT_ENDORSED"/>
+        </Array>
+      </Object>
+    </mxCell>
+    <mxCell id="32" value="ANY" style="gatewayClass;gateway=1;outline=none;symbol=exclusiveGw;" parent="1" vertex="1" type="gateway">
+      <mxGeometry x="500" y="997" width="70" height="70" as="geometry"/>
+      <Object inputSubType="any" outputSubType="exclusiveGw" sources="Provide Critical Endorsement" targets="Approve Response" as="data"/>
+    </mxCell>
+    <mxCell id="39" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0;entryY=0.5;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="36" target="3" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="NONE" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="36" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="1315" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Close Case" task_type_code="CLOSE_CASE" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="27" ICONCODE="folder" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="41" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_InProgress;" parent="1" vertex="1" type="event">
+      <mxGeometry x="286.5" y="215.5" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_IN_PROCESS" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="TRIAGE" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="42" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="41" target="4" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="47" value="CUST_isRequesterMOC" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;edgeStyle=none;html=1;exitX=0;exitY=0.5;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="43" target="46" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="rule" rule_code="f_cust_isrequestermoc" as="data"/>
+    </mxCell>
+    <mxCell id="49" value="CUST_isRequesterNotMOC" style="shape=connector;endArrow=classic;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;labelBackgroundColor=#ffffff;rounded=0;strokeColor=#08658e;strokeWidth=2;fontColor=#000000;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;startArrow=diamondThin;startFill=0;startSize=14;" parent="1" source="43" target="48" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="239" y="590"/>
+          <mxPoint x="400" y="590"/>
+        </Array>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="rule" rule_code="f_cust_isrequesternotmoc" as="data"/>
+    </mxCell>
+    <mxCell id="43" value="ANY" style="gatewayClass;gateway=1;outline=none;symbol=exclusiveGw;" parent="1" vertex="1" type="gateway">
+      <mxGeometry x="204" y="495" width="70" height="70" as="geometry"/>
+      <Object inputSubType="any" outputSubType="exclusiveGw" sources="" targets="" as="data"/>
+    </mxCell>
+    <mxCell id="50" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0;entryY=0.5;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="46" target="48" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="-10" y="662"/>
+        </Array>
+      </mxGeometry>
+      <Object dependency_type="FSCLR" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="46" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="-70" y="485" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Assign Manager" task_type_code="ASSIGN_MANAGER" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="42" ICONCODE="chevron-circle-right" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="53" style="edgeStyle=none;shape=connector;rounded=0;html=1;entryX=0.5;entryY=0;endArrow=classic;fontFamily=Helvetica;fontSize=11;fontColor=#000000;align=center;" parent="1" source="48" target="12" edge="1" type="connection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object dependency_type="FSCLR" condition_type="none" as="data"/>
+    </mxCell>
+    <mxCell id="48" value="&lt;i class=&quot;fa fa-puzzle-piece fa-fw fa-4x&quot;&gt;&lt;/i&gt;" style="taskClass;task=1;taskExecutionMoment_Manual;" parent="1" vertex="1" type="task">
+      <mxGeometry x="340" y="622" width="120" height="80" as="geometry"/>
+      <Object type="task" name="Assign Response" task_type_code="ASSIGN_RESPONSE" execution_type_code="MANUAL" inputSubType="any" outputSubType="exclusiveGw" DEFAULTSTATE="DEFAULT" as="data">
+        <Object ID="22" ICONCODE="forward" as="taskTypeData"/>
+      </Object>
+    </mxCell>
+    <mxCell id="51" value="Requester is not MOC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;connectable=0;" parent="1" vertex="1" type="label">
+      <mxGeometry x="220" y="600" width="130" height="20" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="52" value="Requester is MOC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;connectable=0;" parent="1" vertex="1" type="label">
+      <mxGeometry x="124" y="480" width="80" height="30" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="54" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_InProgress;" parent="1" vertex="1" type="event">
+      <mxGeometry x="476.2903307301631" y="459.6434671893161" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_IN_PROCESS" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="STANDARD_URGENCY" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="55" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="54" target="9" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="56" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_InProgress;" parent="1" vertex="1" type="event">
+      <mxGeometry x="475.2903307301631" y="709.6434671893161" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_IN_PROCESS" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="RESPONSE_BEING_DEVELOPED_H" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="57" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="56" target="12" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="58" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_Closed;" parent="1" vertex="1" type="event">
+      <mxGeometry x="475.11797171227204" y="801.2909219284521" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_CLOSED" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="DEFAULT_CASE_IN_PROCESS" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="59" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="58" target="12" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="60" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_Closed;" parent="1" vertex="1" type="event">
+      <mxGeometry x="470.2903307301631" y="1066.6434671893162" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_CLOSED" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="RECEIVED_CRITICAL_ENDORSEMENT" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="61" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="60" target="16" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="62" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_Closed;" parent="1" vertex="1" type="event">
+      <mxGeometry x="789.9421162057882" y="1060.0725871803488" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_CLOSED" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="OBTAINED_APPROVAL_H" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="63" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="62" target="19" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="64" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_Closed;" parent="1" vertex="1" type="event">
+      <mxGeometry x="474.67657741394464" y="1242.9456926384064" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_CLOSED" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="PROVIDED_RESPONSE" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="65" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="64" target="26" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="66" value="&lt;i class=&quot;PlayCircleIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=changeMilestone;eventExecutionMoment_Closed;" parent="1" vertex="1" type="event">
+      <mxGeometry x="476.11797171227204" y="1380.290921928452" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_CLOSED" execute_once="0" eventType="changeMilestone" subtype="changemilestone" as="data">
+        <Object as="CaseTypes">
+          <Object CASETYPE_CODE="BRIEFINGS" CASE_STATE="CLOSED" RESOLUTION_CODE="DONTCHANGE" as="BRIEFINGS"/>
+        </Object>
+      </Object>
+    </mxCell>
+    <mxCell id="67" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="66" target="36" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+    <mxCell id="68" value="&lt;i class=&quot;BoltIcon&quot;&gt;&lt;/i&gt;" style="eventShapeClass;eventType=rule;eventExecutionMoment_Reopened;" parent="1" vertex="1" type="event">
+      <mxGeometry x="470.5" y="272.5" width="47" height="47" as="geometry"/>
+      <Object execution_moment="closed" execution_state="DEFAULT_TASK_NEW" execute_once="0" eventType="rule" subtype="rule" rule_code="f_cust_assigntaskto2" as="data">
+        <Object paramNames="GS_TEAM" GS_TEAM="" as="eventparams"/>
+      </Object>
+    </mxCell>
+    <mxCell id="69" style="eventEdge=1;strokeWidth=1;editable=0;curved=1;startArrow=oval;startSize=5;endArrow=oval;endSize=5;dashed=1;dashPattern=1 1;" parent="1" source="68" target="4" edge="1" type="eventConnection">
+      <mxGeometry relative="1" as="geometry"/>
+      <Object as="data"/>
+    </mxCell>
+  </root>
+</mxGraphModel>
