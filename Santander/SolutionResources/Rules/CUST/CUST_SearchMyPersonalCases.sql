@@ -25,6 +25,8 @@ declare
 	-- Fields from CDM_Briefings
 	v_RiskIds varchar2(255);
 	v_UrgencyIds varchar2(255);
+    v_BriefingTypeIds varchar2(255);
+    v_BriefingProductIds varchar2(255);
 	
     --PAGING AND SORTING
     v_LIMIT INTEGER;
@@ -61,8 +63,10 @@ begin
     v_MilestoneIds := :MilestoneIds;
 	
 	-- Fields from CDM_Briefings  
-	v_RiskIds := :RiskIds;
-	v_UrgencyIds := :UrgencyIds;
+    v_RiskIds := :RiskIds;
+    v_UrgencyIds := :UrgencyIds;
+    v_BriefingTypeIds := :BriefingTypeIds;
+    v_BriefingProductIds := :BriefingProductIds;
 	
     --PAGING AND SORTING INPUT
     v_SORT := NVL(:SORT,'ID');
@@ -118,8 +122,10 @@ begin
                                          WorkbasketIds => v_WorkbasketIds,
                                          CaseStateIds => v_CaseStateIds,
                                          MilestoneIds => v_MilestoneIds,
-										 RiskIds => v_RiskIds,
-										 UrgencyIds => v_UrgencyIds);
+                                         RiskIds => v_RiskIds,
+                                         UrgencyIds => v_UrgencyIds,
+                                         BriefingTypeIds => v_BriefingTypeIds,
+                                         BriefingProductIds => v_BriefingProductIds);
     --RETURN
     :ErrorCode := v_ErrorCode;
     :ErrorMessage := v_ErrorMessage;

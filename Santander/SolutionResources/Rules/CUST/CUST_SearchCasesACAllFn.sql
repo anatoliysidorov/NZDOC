@@ -41,6 +41,8 @@ declare
   -- Fields from CDM_Briefings
   v_RiskIds varchar2(255);
   v_UrgencyIds varchar2(255);
+  v_BriefingTypeIds varchar2(255);
+  v_BriefingProductIds varchar2(255);
 begin
 
   v_CREATED_END := :CREATED_END;
@@ -94,6 +96,8 @@ begin
   -- Fields from CDM_Briefings  
   v_RiskIds := :RiskIds;
   v_UrgencyIds := :UrgencyIds;
+  v_BriefingTypeIds := :BriefingTypeIds;
+  v_BriefingProductIds := :BriefingProductIds;
 
   if lower(trim(v_SORT)) = 'goalsladuration' then
     v_SORT := 'GOALSLADATETIME';
@@ -221,13 +225,21 @@ begin
     v_query2 := v_query2 || ' inner join tbl_caseparty cp on cv.col_id = cp.col_casepartycase ';
   end if;
   */
-  if v_RiskIds is not null or v_UrgencyIds is not null then
+  if v_RiskIds is not null 
+    or v_UrgencyIds is not null
+    or v_BriefingTypeIds is not null
+    or v_BriefingProductIds is not null
+  then
     v_query := v_query || ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cv.col_id 
                     left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK 
-                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
+                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY 
+                    left join tbl_dict_customword dictBriefType on dictBriefType.col_id = cb.COL_CDM_BRIEFINGBRIEFING_TYP
+                    left join tbl_dict_customword dictBriefProd on dictBriefProd.col_id = cb.COL_CDM_BRIEFINGBRIEFING_PRO ';
     v_query2 := v_query2 || ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cv.col_id 
                     left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK 
-                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
+                    left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY                     
+                    left join tbl_dict_customword dictBriefType on dictBriefType.col_id = cb.COL_CDM_BRIEFINGBRIEFING_TYP
+                    left join tbl_dict_customword dictBriefProd on dictBriefProd.col_id = cb.COL_CDM_BRIEFINGBRIEFING_PRO ';
   end if;
   
   v_whereqry := null;
@@ -319,7 +331,7 @@ begin
     v_whereqry := v_whereqry || ' AND cv.col_id in (select cp.col_casepartycase from tbl_caseparty cp where cp.col_casepartycase = cv.col_id and cp.col_casepartyppl_caseworker in (' || v_TeamIds || '))';
   end if;
   
-  -- Search by CDM Briefingss fields
+  -- Search by CDM Briefing fields
   if v_RiskIds is not null and v_whereqry is null then
     v_whereqry := ' WHERE dictRisk.col_id in (' || v_RiskIds || ')';
   elsif v_RiskIds is not null and v_whereqry is not null then
@@ -330,7 +342,16 @@ begin
   elsif v_UrgencyIds is not null and v_whereqry is not null then
     v_whereqry := v_whereqry || ' AND dictUrgency.col_id in (' || v_UrgencyIds || ')';
   end if;
-  
+  if v_BriefingTypeIds is not null and v_whereqry is null then
+    v_whereqry := ' WHERE dictBriefType.col_id in (' || v_BriefingTypeIds || ')';
+  elsif v_BriefingTypeIds is not null and v_whereqry is not null then
+    v_whereqry := v_whereqry || ' AND dictBriefType.col_id in (' || v_BriefingTypeIds || ')';
+  end if;
+  if v_BriefingProductIds is not null and v_whereqry is null then
+    v_whereqry := ' WHERE dictBriefProd.col_id in (' || v_BriefingProductIds || ')';
+  elsif v_BriefingProductIds is not null and v_whereqry is not null then
+    v_whereqry := v_whereqry || ' AND dictBriefProd.col_id in (' || v_BriefingProductIds || ')';
+  end if;
   
   if v_ExternalPartyIds is not null and v_whereqry is null then
     --v_whereqry := ' WHERE (cp.col_casepartyexternalparty in (' || v_ExternalPartyIds || ') or cv.col_caseppl_workbasket in (' || v_calcWB || '))';
@@ -413,7 +434,7 @@ begin
                    and col_casetypemodcachecasetype = cs.col_casedict_casesystype) then 1 else 0 end as PERM_CASETYPE_MODIFY,
   f_getNameFromAccessSubject(cs.col_createdby) as CreatedBy_Name, f_UTIL_getDrtnFrmNow(cs.col_createddate) as CreatedDuration,
   f_getNameFromAccessSubject(cs.col_modifiedby) as ModifiedBy_Name, f_UTIL_getDrtnFrmNow (cs.col_modifieddate) as ModifiedDuration,
-  dictRisk.col_name as Risk, dictUrgency.col_name as Urgency, ';
+  dictRisk.col_name as Risk, dictUrgency.col_name as Urgency, dictBriefType.col_name as BriefingType, dictBriefProd.col_name as BriefingProduct, ';
   if v_Case_Id is null then
     v_query := v_query || ' NULL as customdata,';
   elsif v_Case_Id is not null then
@@ -441,7 +462,9 @@ begin
           ' left join tbl_dict_state dict_state ON cs.col_casedict_state = dict_state.col_id ' ||
 		  ' left join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = cs.col_id ' ||
           ' left join tbl_dict_customword dictRisk on dictRisk.col_id = cb.COL_CDM_BRIEFINGSRISK ' || 
-          ' left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ';
+          ' left join tbl_dict_customword dictUrgency on dictUrgency.col_id = cb.COL_CDM_BRIEFINGSURGENCY ' ||
+          ' left join tbl_dict_customword dictBriefType on dictBriefType.col_id = cb.COL_CDM_BRIEFINGBRIEFING_TYP ' || 
+          ' left join tbl_dict_customword dictBriefProd on dictBriefProd.col_id = cb.COL_CDM_BRIEFINGBRIEFING_PRO ';
   ------------------------------------------------------------------------------------------------------------
   v_query := v_query || ' order by c.rn';
   --insert into tbl_log(col_bigdata1) values(v_query);

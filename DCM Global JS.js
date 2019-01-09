@@ -71,7 +71,10 @@ Ext.onReady(function () {
 							MILESTONEIDS: {fieldReference: 'tag_MILESTONEIDS'},
 							CASESTATEIDS: {fieldReference: 'tag_CASESTATEIDS'},
 							RISKIDS: {fieldReference: 'tag_RISKIDS'},
-							URGENCYIDS: {fieldReference: 'tag_URGENCYIDS'}
+							URGENCYIDS: {fieldReference: 'tag_URGENCYIDS'},
+							URGENCYIDS: {fieldReference: 'tag_URGENCYIDS'},
+							BRIEFINGTYPEIDS: {fieldReference: 'tag_BRIEFINGTYPEIDS'},
+							BRIEFINGPRODUCTIDS: {fieldReference: 'tag_BRIEFINGPRODUCTIDS'}
 						}
                     }
                 }
@@ -129,7 +132,9 @@ Ext.onReady(function () {
 							MILESTONEIDS: {fieldReference: 'tag_MILESTONEIDS'},
 							CASESTATEIDS: {fieldReference: 'tag_CASESTATEIDS'},
 							RISKIDS: {fieldReference: 'tag_RISKIDS'},
-							URGENCYIDS: {fieldReference: 'tag_URGENCYIDS'}
+							URGENCYIDS: {fieldReference: 'tag_URGENCYIDS'},
+							BRIEFINGTYPEIDS: {fieldReference: 'tag_BRIEFINGTYPEIDS'},
+							BRIEFINGPRODUCTIDS: {fieldReference: 'tag_BRIEFINGPRODUCTIDS'}
 						}
 					}
 				}
@@ -248,6 +253,40 @@ Ext.onReady(function () {
 					},
 					searchParams: {
 						CATEGORYPATH: 'URGENCY'
+					}
+				},
+				storeBriefType: {
+					fields: ['ID', 'NAME'],
+					proxy: EcxUtils5.Request.generateProxy('root_DICT_getWords'),
+					autoLoad: true,
+					sorters: {
+						property: 'ID',
+						direction: 'DESC'
+					},
+					remoteSort: true,
+					listeners: {
+						datachanged: 'onDataChanged',
+						beforeload: 'appendSearchParams'
+					},
+					searchParams: {
+						CATEGORYPATH: 'BRIEFING_TYPE'
+					}
+				},
+				storeBriefProduct: {
+					fields: ['ID', 'NAME'],
+					proxy: EcxUtils5.Request.generateProxy('root_DICT_getWords'),
+					autoLoad: true,
+					sorters: {
+						property: 'ID',
+						direction: 'DESC'
+					},
+					remoteSort: true,
+					listeners: {
+						datachanged: 'onDataChanged',
+						beforeload: 'appendSearchParams'
+					},
+					searchParams: {
+						CATEGORYPATH: 'BRIEFING_PRODUCT'
 					}
 				}
 			}
@@ -370,6 +409,40 @@ Ext.onReady(function () {
 					searchParams: {
 						CATEGORYPATH: 'URGENCY'
 					}
+				},
+				storeBriefType: {
+					fields: ['ID', 'NAME'],
+					proxy: EcxUtils5.Request.generateProxy('root_DICT_getWords'),
+					autoLoad: true,
+					sorters: {
+						property: 'ID',
+						direction: 'DESC'
+					},
+					remoteSort: true,
+					listeners: {
+						datachanged: 'onDataChanged',
+						beforeload: 'appendSearchParams'
+					},
+					searchParams: {
+						CATEGORYPATH: 'BRIEFING_TYPE'
+					}
+				},
+				storeBriefProduct: {
+					fields: ['ID', 'NAME'],
+					proxy: EcxUtils5.Request.generateProxy('root_DICT_getWords'),
+					autoLoad: true,
+					sorters: {
+						property: 'ID',
+						direction: 'DESC'
+					},
+					remoteSort: true,
+					listeners: {
+						datachanged: 'onDataChanged',
+						beforeload: 'appendSearchParams'
+					},
+					searchParams: {
+						CATEGORYPATH: 'BRIEFING_PRODUCT'
+					}
 				}
 			}
 		}
@@ -426,6 +499,16 @@ Ext.onReady(function () {
 		}, {
 			text: t('Urgency'),
 			dataIndex: 'URGENCY',
+			width: 200,
+			sortable: true
+		}, {
+			text: t('Briefing Type'),
+			dataIndex: 'BRIEFINGTYPE',
+			width: 200,
+			sortable: true
+		}, {
+			text: t('Briefing Product'),
+			dataIndex: 'BRIEFINGPRODUCT',
 			width: 200,
 			sortable: true
 		}, {
@@ -612,6 +695,16 @@ Ext.onReady(function () {
 			}, {
 				text: t('Urgency'),
 				dataIndex: 'URGENCY',
+				width: 200,
+				sortable: true
+			}, {
+				text: t('Briefing Type'),
+				dataIndex: 'BRIEFINGTYPE',
+				width: 200,
+				sortable: true
+			}, {
+				text: t('Briefing Product'),
+				dataIndex: 'BRIEFINGPRODUCT',
 				width: 200,
 				sortable: true
 			}, {
@@ -949,6 +1042,30 @@ Ext.onReady(function () {
 			bind: {
 				store: '{storeUrgencies}'
 			}
+		}, {
+			xtype: 'ecx-tagfieldisdeleted',
+			fieldLabel: t('Briefing Type'),
+			reference: 'tag_BRIEFINGTYPEIDS',
+			displayField: 'NAME',
+			valueField: 'ID',
+			queryMode: 'remote',
+			filterPickList: true,
+			delimiter: ',',
+			bind: {
+				store: '{storeBriefType}'
+			}
+		}, {
+			xtype: 'ecx-tagfieldisdeleted',
+			fieldLabel: t('Briefing Product'),
+			reference: 'tag_BRIEFINGPRODUCTIDS',
+			displayField: 'NAME',
+			valueField: 'ID',
+			queryMode: 'remote',
+			filterPickList: true,
+			delimiter: ',',
+			bind: {
+				store: '{storeBriefProduct}'
+			}
 		}]
     });
 	
@@ -1156,6 +1273,30 @@ Ext.onReady(function () {
 			delimiter: ',',
 			bind: {
 				store: '{storeUrgencies}'
+			}
+		}, {
+			xtype: 'ecx-tagfieldisdeleted',
+			fieldLabel: t('Briefing Type'),
+			reference: 'tag_BRIEFINGTYPEIDS',
+			displayField: 'NAME',
+			valueField: 'ID',
+			queryMode: 'remote',
+			filterPickList: true,
+			delimiter: ',',
+			bind: {
+				store: '{storeBriefType}'
+			}
+		}, {
+			xtype: 'ecx-tagfieldisdeleted',
+			fieldLabel: t('Briefing Product'),
+			reference: 'tag_BRIEFINGPRODUCTIDS',
+			displayField: 'NAME',
+			valueField: 'ID',
+			queryMode: 'remote',
+			filterPickList: true,
+			delimiter: ',',
+			bind: {
+				store: '{storeBriefProduct}'
 			}
 		}]
     }); 
