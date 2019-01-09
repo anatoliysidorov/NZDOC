@@ -30,9 +30,7 @@ BEGIN
 		parentTaskCustomData => v_parentTaskCustomData,
 		parentTaskState => v_parentTaskState
 	);
-    
-    INSERT INTO tbl_log(col_data1) VALUES (v_parentTask);
-    
+        
     select count(1) into :TaskResult
     from tbl_Task t 
     join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = t.COL_CASETASK

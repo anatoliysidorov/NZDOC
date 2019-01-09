@@ -30,12 +30,12 @@ BEGIN
 		parentTaskCustomData => v_parentTaskCustomData,
 		parentTaskState => v_parentTaskState
 	);
-    
+       
     select count(1) into :TaskResult
     from tbl_Task t 
     join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = t.COL_CASETASK
-    join tbl_dict_customword cw on cw.col_id = cb.COL_CDM_BRIEFINGSRISK AND UPPER(cw.col_Code) = 'LOW'
-    join tbl_dict_customcategory cc on cw.col_wordcategory = cc.col_id
+    join tbl_dict_customword cw on cw.col_id = cb.COL_CDM_BRIEFINGORGANISATION AND UPPER(cw.col_Code) <> 'MOC'
+    join tbl_dict_customcategory cc on cw.col_wordcategory = cc.col_id AND UPPER(cc.col_code) = 'ORGANISATIONS'
     where t.col_id = v_parentTask;
     
 	RETURN :TaskResult;
