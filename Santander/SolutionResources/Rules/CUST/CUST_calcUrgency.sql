@@ -7,6 +7,12 @@ DECLARE
     v_SubmittedDate DATE;
     v_UrgencyId INT;
     v_urgencyCode varchar2(255);
+    v_FirstName nvarchar2(255);
+    v_LastName nvarchar2(255);
+    v_ExtPartyId INT;
+    v_partytype_id INT;
+    v_OrgName nvarchar2(255);
+    v_OrgId INT;
     
     -- OUTPUT
     v_ErrorCode         NUMBER;
@@ -20,10 +26,11 @@ BEGIN
     v_ErrorMessage     := NULL; 
     v_validationresult := 1; --valid by default
 
-    SELECT NVL(col_Required_By, sysdate), NVL(col_Submitted_By, sysdate)
-    INTO v_RequiredDate, v_SubmittedDate
-    FROM tbl_cdm_briefings
-    WHERE col_briefingsCase = v_CaseId;
+    SELECT NVL(brief.col_Required_By, sysdate), NVL(brief.col_Submitted_By, sysdate), brief.COL_REQUESTER_FIRST_NAME, brief.COL_REQUESTER_LAST_NAME, cw.col_Name
+    INTO v_RequiredDate, v_SubmittedDate, v_FirstName, v_LastName, v_OrgName
+    FROM tbl_cdm_briefings brief
+    LEFT JOIN tbl_dict_customword cw ON brief.COL_CDM_BRIEFINGORGANISATION = cw.col_Id
+    WHERE brief.col_briefingsCase = v_CaseId;
     
     IF TRUNC(v_RequiredDate - v_SubmittedDate) < 3 THEN 
         v_urgencyCode := 'HIGH_URGENCY';
@@ -44,6 +51,61 @@ BEGIN
     EXCEPTION 
         WHEN OTHERS THEN NULL;
     END;
+    
+    IF (v_FirstName IS NOT NULL AND v_LastName IS NOT NULL) THEN
+        BEGIN
+            SELECT col_ID INTO v_ExtPartyId  
+            FROM tbl_externalparty te
+            WHERE te.col_name = v_FirstName || ' '|| v_LastName;
+
+        EXCEPTION 
+          WHEN NO_DATA_FOUND THEN
+            
+            SELECT col_Id into v_partytype_id 
+            FROM tbl_dict_partytype 
+            WHERE UPPER(col_Code) = 'REQUESTER';
+            
+            BEGIN
+                SELECT col_ID INTO v_OrgId  
+                FROM tbl_externalparty te
+                WHERE te.col_name = v_OrgName;
+            EXCEPTION 
+                WHEN OTHERS THEN v_OrgId := null;
+            END;
+  
+            v_ExtPartyId := f_ppl_createmodifyepfn(address      => null,
+                                          customdata             => null,
+                                          defaultteam_id         => null,
+                                          description            => null,
+                                          email                  => null,
+                                          errorcode              => v_errorCode,
+                                          errormessage           => v_errorMessage,
+                                          externalid             => null,
+                                          extsysid               => null,
+                                          id                     => null,
+                                          isdeleted              => 0,
+                                          justcustomdata         => null,
+                                          NAME                   => v_FirstName || ' ' ||v_LastName,
+                                          parentexternalparty_id => v_OrgId,
+                                          partytype_code         => null,
+                                          partytype_id           => v_partytype_id,
+                                          phone                  => null,
+                                          userid                 => null,
+                                          workbasket_id          => null,
+                                          firstname              => v_FirstName,
+                                          middlename             => null,
+                                          lastname               => v_LastName,
+                                          dob                    => null,
+                                          prefix                 => null,
+                                          suffix                 => null,
+                                          partyorgtype_id        => null);
+        END;
+        
+        UPDATE tbl_caseparty
+           SET Col_Casepartyexternalparty = v_ExtPartyId
+         WHERE col_casepartyCase = v_CaseId AND LOWER(col_name) = 'requester';
+    END IF;
+    
     :ErrorCode := v_ErrorCode;
     :ErrorMessage := v_ErrorMessage;
     :validationResult := v_validationresult;
