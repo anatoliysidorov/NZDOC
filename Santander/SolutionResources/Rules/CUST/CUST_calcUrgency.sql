@@ -70,7 +70,10 @@ BEGIN
                 FROM tbl_externalparty te
                 WHERE te.col_name = v_OrgName;
             EXCEPTION 
-                WHEN OTHERS THEN v_OrgId := null;
+                WHEN OTHERS THEN 
+                    SELECT col_ID INTO v_OrgId  
+                    FROM tbl_externalparty te
+                    WHERE te.col_name = 'Public';
             END;
   
             v_ExtPartyId := f_ppl_createmodifyepfn(address      => null,
