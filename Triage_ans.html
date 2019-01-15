@@ -1,0 +1,26 @@
+  
+        
+        
+        <!-- Action bar - Suited for buttons on form -->
+        
+    <div class="row-fluid" style="z-index: 22;"><div class="span12 well droppedFields action-bar ui-droppable ui-sortable" style="z-index: 23;"><div class="draggableField ui-draggable droppedField" style="z-index: 53; width: 100%;" id="CTRL-DIV-1005" is_readonly="true" mapping="TIP" customconfig="xtype: 'htmleditor',
+listeners: {
+        initialize : function(view, opts){
+			view.setValue('&#x3C;p&#x3E;&#x3C;span style=&#x22;color: blue;&#x22;&#x3E;&#x3C;span style=&#x22;color: #000000;&#x22;&#x3E;Please perform each of the required actions. At its completion, check the corresponding checkbox below.&#x3C;/span&#x3E;&#x3C;/span&#x3E;&#x3C;/p&#x3E;&#x3C;p class=&#x22;&#x22; style=&#x22;&#x22;&#x3E;Following is a checklist for required actions associated with the task &#x3C;span style=&#x22;color: blue;&#x22;&#x3E;&#x3C;em&#x3E;Triage Request&#x3C;/em&#x3E;&#x3C;span style=&#x22;color: #000000;&#x22;&#x3E;.&#x3C;/span&#x3E;&#x3C;/span&#x3E;&#x3C;/p&#x3E;&#x3C;p&#x3E;&#x3C;span style=&#x22;color: #ff0000;&#x22;&#x3E;Note:   To complete this task (assign resolution code) you MUST check all of these checkboxes, confirming that you have performed these actions.&#x3C;/span&#x3E;&#x3C;/p&#x3E;&#x3C;p class=&#x22;&#x22; style=&#x22;&#x22;&#x3E;Please review the other task tabs, such as &#x3C;em&#x3E;&#x3C;span style=&#x22;color: #0000ff;&#x22;&#x3E;Case Data&#x3C;/span&#x3E;&#x3C;/em&#x3E; and &#x3C;em&#x3E;&#x3C;span style=&#x22;color: #0000ff;&#x22;&#x3E;Case Documents&#x3C;/span&#x3E;&#x3C;/em&#x3E;. You may find online reference material in the Knowledgebase tab.&#x3C;/p&#x3E;');
+        },
+		afterrender: function(editor) {
+			editor.getToolbar().hide();
+    }
+}" allowblank="true" tabindex="" helpmessage="" is_hidden="false" placeholder="Text..." width="" height="100" maxlength="" minlength="" initialvalue="">
+                        <label class="control-label"></label>                        
+                        <textarea type="text" placeholder="Text..." class="ctrl-textarea" name="TIP"></textarea>                        
+                    </div></div></div><div class="row-fluid" style="z-index: 24;"><div class="span12 well droppedFields action-bar ui-droppable ui-sortable" title="Check List" layout="vertical" is_hidden="false" customconfig="" style="z-index: 25;"><div class="draggableField ui-draggable droppedField" style="z-index: 26; width: auto;" id="CTRL-DIV-1002" is_readonly="false" mapping="DOC_Compliance" customconfig="" allowblank="true" tabindex="" helpmessage="" is_hidden="false" defaultselected="" options="Verify compliance with DOC standards" boxlabel="">
+                        <label class="control-label"></label>
+                        <div class="ctrl-checkbox" style="z-index: 27;"><p class="checkbox">Verify compliance with DOC standards<input type="checkbox" class="ctrl-checkbox" name="DOC_Compliance"></p></div>
+                    </div><div class="draggableField ui-draggable droppedField" style="z-index: 28; width: auto;" id="CTRL-DIV-1004" is_readonly="false" mapping="Risk" customconfig="" allowblank="true" tabindex="" helpmessage="" is_hidden="false" defaultselected="" options="Assign Risk Level" boxlabel="">
+                        <label class="control-label"></label>
+                        <div class="ctrl-checkbox" style="z-index: 29;"><p class="checkbox">Assign Risk Level<input type="checkbox" class="ctrl-checkbox" name="Risk"></p></div>
+                    </div><div class="draggableField ui-draggable droppedField" style="z-index: 30; width: auto;" id="CTRL-DIV-1003" is_readonly="false" mapping="urgency" customconfig="" allowblank="true" tabindex="" helpmessage="" is_hidden="false" defaultselected="" options="Confirm urgency level" boxlabel="">
+                        <label class="control-label"></label>
+                        <div class="ctrl-checkbox" style="z-index: 31;"><p class="checkbox">Confirm urgency level<input type="checkbox" class="ctrl-checkbox" name="urgency"></p></div>
+                    </div></div></div>
