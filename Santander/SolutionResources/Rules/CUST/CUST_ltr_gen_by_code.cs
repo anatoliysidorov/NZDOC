@@ -9,12 +9,17 @@ var inputParams = request.Parameters.Where(p => p.Name != "t").ToDictionary(p =>
 Func<XDocument, string, string> getValueFromResponse = LTR.Helpers.AppBaseHelper.GetValueFromResponse;
 Func<string, Dictionary<string, string>, XDocument> executeRule = (c, p) => LTR.Helpers.AppBaseHelper.ExecuteRuleXml(token, domain, c, p);
 
-//get Case Id
+// get Case Id
 var caseIdRes = executeRule("root_ltr_dcm_task_get_case_id", new Dictionary<string, string> { { "TaskId", taskId } });
 var caseId = getValueFromResponse(caseIdRes, "CASEID");
+// get Product Type
+var caseProdTypeRes = executeRule("root_CUST_getProductType", new Dictionary<string, string> { { "TaskId", taskId } });
+var productType = getValueFromResponse(caseProdTypeRes, "PRODUCTTYPE");
+var caseName = getValueFromResponse(caseProdTypeRes, "CASENAME");
+
 inputParams["CASE_ID"] = caseId;
 inputParams["ObjectId"] = caseId;
-inputParams["Name"] = "19-B-"+ caseId + "-"+name;
+inputParams["Name"] = "19-B-"+ caseName + "-" + productType + "-" + name;
 inputParams["ObjectType"] = "root_Case";
 var ltrGenRes = executeRule(ruleCode, inputParams);
 

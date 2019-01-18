@@ -1,4 +1,4 @@
-select cw.col_Name as ProductType
+select cw.col_Name as ProductType, c.col_CaseId as CaseName
     from tbl_Case c 
     join tbl_cdm_briefings cb on cb.COL_BRIEFINGSCASE = c.COL_ID
     join tbl_dict_customword cw on cw.col_id = cb.COL_CDM_BRIEFINGBRIEFING_PRO
